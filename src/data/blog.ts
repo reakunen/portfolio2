@@ -7,6 +7,12 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
 
 type Metadata = {
   title: string;
@@ -42,10 +48,15 @@ export async function getPost(slug: string) {
   let source = fs.readFileSync(filePath, "utf-8");
   const { content: rawContent, data: metadata } = matter(source);
   const content = await markdownToHTML(rawContent);
+  
+  // Get view count from Redis
+  const views = await redis.get<number>(`pageviews:${slug}`) ?? 0;
+  
   return {
     source: content,
     metadata,
     slug,
+    views,
   };
 }
 
@@ -54,11 +65,12 @@ async function getAllPosts(dir: string) {
   return Promise.all(
     mdxFiles.map(async (file) => {
       let slug = path.basename(file, path.extname(file));
-      let { metadata, source } = await getPost(slug);
+      let { metadata, source, views } = await getPost(slug);
       return {
         metadata,
         slug,
         source,
+        views,
       };
     }),
   );
@@ -66,4 +78,8 @@ async function getAllPosts(dir: string) {
 
 export async function getBlogPosts() {
   return getAllPosts(path.join(process.cwd(), "content"));
+}
+
+export async function incrementViews(slug: string) {
+  return await redis.incr(`pageviews:${slug}`);
 }

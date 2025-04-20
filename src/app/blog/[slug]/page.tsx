@@ -1,13 +1,20 @@
-import { getBlogPosts, getPost } from "@/data/blog";
+import { getBlogPosts, getPost, incrementViews } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { Redis } from '@upstash/redis';
+import { NextResponse } from 'next/server';
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -68,6 +75,9 @@ export default async function Blog({
     notFound();
   }
 
+  // Increment views when the page is loaded
+  await incrementViews(params.slug);
+
   return (
     <section id="blog">
       <script
@@ -110,6 +120,10 @@ export default async function Blog({
             {formatDate(post.metadata.publishedAt)}
           </p>
         </Suspense>
+        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+          <Eye className="size-4" />
+          {post.views} views
+        </div>
       </div>
       <article
         className="prose dark:prose-invert"
@@ -117,4 +131,22 @@ export default async function Blog({
       ></article>
     </section>
   );
+}
+
+export async function POST(request: Request) {
+  const { slug } = await request.json();
+  const views = await redis.incr(`pageviews:${slug}`);
+  return NextResponse.json({ views });
+}
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const slug = searchParams.get('slug');
+
+  if (!slug) {
+    return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
+  }
+
+  const views = await redis.get<number>(`pageviews:${slug}`) ?? 0;
+  return NextResponse.json({ views });
 }

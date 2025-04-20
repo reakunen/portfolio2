@@ -3,6 +3,8 @@ import { getBlogPosts } from "@/data/blog";
 import Link from "next/link";
 import { TextAnimate } from "@/components/magicui/text-animate";
 import { formatDate } from "@/lib/utils";
+import { Eye } from "lucide-react";
+
 export const metadata = {
   title: "Blog",
   description: "My thoughts on software development, life, and more.",
@@ -41,9 +43,15 @@ export default async function BlogPage() {
             >
               <div className="w-full flex flex-col">
                 <p className="tracking-tight">{post.metadata.title}</p>
-                <p className="h-6 text-xs text-muted-foreground">
-                  {formatDate(post.metadata.publishedAt)}
-                </p>
+                <div className="flex items-center gap-4">
+                  <p className="h-6 text-xs text-muted-foreground">
+                    {formatDate(post.metadata.publishedAt)}
+                  </p>
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <Eye className="size-3" />
+                    {post.views} views
+                  </div>
+                </div>
               </div>
             </Link>
           </BlurFade>
