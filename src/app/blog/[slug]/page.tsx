@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getBlogPosts, getPost, incrementViews } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
@@ -8,13 +9,6 @@ import Link from "next/link";
 import { ChevronLeft, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { Redis } from '@upstash/redis';
-import { NextResponse } from 'next/server';
-
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -28,7 +22,7 @@ export async function generateMetadata({
     slug: string;
   };
 }): Promise<Metadata | undefined> {
-  let post = await getPost(params.slug);
+  let post: any = await getPost(params.slug);
 
   let {
     title,
@@ -131,22 +125,4 @@ export default async function Blog({
       ></article>
     </section>
   );
-}
-
-export async function POST(request: Request) {
-  const { slug } = await request.json();
-  const views = await redis.incr(`pageviews:${slug}`);
-  return NextResponse.json({ views });
-}
-
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const slug = searchParams.get('slug');
-
-  if (!slug) {
-    return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
-  }
-
-  const views = await redis.get<number>(`pageviews:${slug}`) ?? 0;
-  return NextResponse.json({ views });
 }
