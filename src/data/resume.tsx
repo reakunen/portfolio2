@@ -121,18 +121,18 @@ export const DATA = {
       description:
         "I was on the DevOps & Middleware team. During my internship, I built a real-time logging dashboard using Next.js and Tailwind for DevOps and DBA teams. I integrated AWS SDK features for dynamic resource management and led the GitLab CI/CD deployment of the application.",
     },
-    {
-      company: "Alan AI",
-      href: "https://alan.app",
-      badges: [],
-      location: "Remote",
-      title: "Software Engineer Intern",
-      logoUrl: "https://media.licdn.com/dms/image/v2/C560BAQF8p811sSczsA/company-logo_200_200/company-logo_200_200/0/1630566886066/alanvoiceai_logo?e=2147483647&v=beta&t=212m8LqQsUMMxzLmFNTmMgFmd2ortAc3JcKxkytMWp4",
-      start: "June 2021",
-      end: "September 2021",
-      description:
-        "I created a React application that incorporated voice interaction using Alan AI’s speech-to-text API. My work focused on building robust test coverage through unit, integration, and Postman tests to ensure API reliability across web apps."
-    },
+    // {
+    //   company: "Alan AI",
+    //   href: "https://alan.app",
+    //   badges: [],
+    //   location: "Remote",
+    //   title: "Software Engineer Intern",
+    //   logoUrl: "https://media.licdn.com/dms/image/v2/C560BAQF8p811sSczsA/company-logo_200_200/company-logo_200_200/0/1630566886066/alanvoiceai_logo?e=2147483647&v=beta&t=212m8LqQsUMMxzLmFNTmMgFmd2ortAc3JcKxkytMWp4",
+    //   start: "June 2021",
+    //   end: "September 2021",
+    //   description:
+    //     "I created a React application that incorporated voice interaction using Alan AI’s speech-to-text API. My work focused on building robust test coverage through unit, integration, and Postman tests to ensure API reliability across web apps."
+    // },
   ],
   education: [
     {
