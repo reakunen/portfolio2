@@ -77,12 +77,12 @@ export const DATA = {
       href: "https://www.sofi.com/",
       badges: [],
       location: "San Francisco, CA",
-      title: "Software Engineer Intern",
+      title: "Incoming Software Engineer Intern",
       logoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThVpuqNnZrhiAslzfyxcajIMPtPTjdSIUQ1A&s",
       start: "June 2025",
       end: "September 2025",
       description:
-        "Developing components for the SAFE team platform that handles risk assessment and AML compliance for both business and member operations. Building a sophisticated risk decision engine that analyzes thousands of data points to determine risk profiles and implements appropriate verification steps based on risk levels."
+        "On the SAFE Anti Money Laundering team",
     },
     {
       company: "Federal Reserve Bank of San Francisco",
