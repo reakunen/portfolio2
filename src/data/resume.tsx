@@ -94,7 +94,7 @@ export const DATA = {
       start: "June 2024",
       end: "August 2024",
       description:
-        "I was on the Cash Application Delivery Services Team (Cash ADS). I supported the migration to AWS GovCloud and developed tools for resource monitoring using CloudWatch, Lambda, and Terraform. I automated cleanup processes, enforced least privilege IAM policies, and deployed a SageMaker machine learning models."
+        "I was on the Cash Application Delivery Services Team (Cash ADS). I supported the migration to AWS GovCloud and developed tools for resource monitoring using CloudWatch, Lambda, and Terraform. I automated cleanup processes and enforced least privilege IAM policies."
     },
     {
       company: "Cal Poly Computer Science Department",
