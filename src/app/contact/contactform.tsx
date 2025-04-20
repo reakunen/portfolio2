@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import BlurFade from '@/components/magicui/blur-fade';
+import { ConfettiButton } from "@/components/magicui/confetti";
 
 export default function ContactForm() {
     const [formData, setFormData] = useState({
@@ -21,26 +22,29 @@ export default function ContactForm() {
         setStatus({ type: null, message: '' });
 
         try {
-            const response = await fetch('/api/send-email', {
+            const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    access_key: '32aab884-66b2-4e3f-8908-e789beda5fba',
+                    ...formData
+                }),
             });
 
             const data = await response.json();
 
-            if (response.ok) {
+            if (data.success) {
                 setStatus({
                     type: 'success',
-                    message: 'Message sent successfully! I will get back to you soon.',
+                    message: 'Message sent! I will get back to you soon.',
                 });
                 setFormData({ name: '', email: '', message: '' });
             } else {
                 setStatus({
                     type: 'error',
-                    message: 'Failed to send message. Please try again later.',
+                    message: data.message || 'Failed to send message. Please try again later.',
                 });
             }
         } catch (error) {
@@ -65,15 +69,15 @@ export default function ContactForm() {
         <BlurFade
             delay={0.4}
             duration={0.6}
-            className="mt-12"
+            className="mt-4"
         >
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg shadow-lg p-6">
                 {status.type && (
                     <BlurFade>
                         <div
                             className={`mb-4 p-4 rounded-md ${status.type === 'success'
-                                ? 'bg-green-50 text-green-800'
-                                : 'bg-red-50 text-red-800'
+                                ? 'bg-green-50 dark:bg-green-900/50 text-green-800 dark:text-green-200'
+                                : 'bg-red-50 dark:bg-red-900/50 text-red-800 dark:text-red-200'
                                 }`}
                         >
                             {status.message}
@@ -82,7 +86,7 @@ export default function ContactForm() {
                 )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Name
                         </label>
                         <input
@@ -91,13 +95,13 @@ export default function ContactForm() {
                             id="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500"
+                            className="mt-1 block w-full px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-400 shadow-sm focus:border-gray-400 dark:focus:border-gray-600 focus:ring-gray-400 dark:focus:ring-gray-600"
                             required
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Email
                         </label>
                         <input
@@ -106,13 +110,13 @@ export default function ContactForm() {
                             id="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500"
+                            className="mt-1 block w-full px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm focus:border-gray-400 dark:focus:border-gray-600 focus:ring-gray-400 dark:focus:ring-gray-600"
                             required
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="message" className="block text-sm font-medium text-gray-700">
+                        <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Message
                         </label>
                         <textarea
@@ -121,22 +125,13 @@ export default function ContactForm() {
                             rows={8}
                             value={formData.message}
                             onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500"
+                            className="mt-1 block w-full px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm focus:border-gray-400 dark:focus:border-gray-600 focus:ring-gray-400 dark:focus:ring-gray-600"
                             required
                         />
                     </div>
 
                     <div>
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${isSubmitting
-                                ? 'bg-gray-400 cursor-not-allowed'
-                                : 'bg-gray-900 hover:bg-gray-800'
-                                } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500`}
-                        >
-                            {isSubmitting ? 'Sending...' : 'Send Message'}
-                        </button>
+                        <ConfettiButton className="w-full" disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Message'}</ConfettiButton>
                     </div>
                 </form>
             </div>

@@ -10,18 +10,18 @@ export default function ContactPage() {
                 <TextAnimate
                     as="h1"
                     animation="blurInDown"
-                    className="text-4xl font-bold text-gray-900 mb-4"
+                    className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2"
                     once={true}
                 >
-                    Contact Me
+                    Contact Me 🤙
                 </TextAnimate>
                 <TextAnimate
                     animation="blurInUp"
                     delay={0.2}
-                    className="text-xl text-gray-600 mb-8"
+                    className="text-xl text-gray-600 dark:text-gray-300 mb-8"
                     once={true}
                 >
-                    Send me a message and I'll get back to you as soon as possible.
+                    Send me a message and I&apos;ll get back to you as soon as possible.
                 </TextAnimate>
             </div>
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Badge } from './ui/badge';
+import Image from 'next/image';
 
 interface NowPlayingResponse {
     isPlaying: boolean;
@@ -46,10 +47,12 @@ export default function NowPlaying() {
         >
             <div className="flex items-center gap-2">
                 {data.albumImageUrl && (
-                    <img
-                        alt={data.album}
+                    <Image
+                        alt={data.album ?? 'Album Image'}
                         src={data.albumImageUrl}
                         className="w-10 h-10 rounded-sm"
+                        width={40}
+                        height={40}
                     />
                 )}
                 <div className="flex flex-col">

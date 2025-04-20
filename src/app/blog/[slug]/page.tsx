@@ -4,6 +4,10 @@ import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -88,7 +92,16 @@ export default async function Blog({
           }),
         }}
       />
-      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+      <div className="flex justify-start">
+        <Link
+          href="/blog"
+          className="mb-4 flex text-sm items-center gap-1 text-muted-foreground hover:text-foreground"
+        >
+          <ChevronLeft className="size-4" />
+          Back to Blog
+        </Link>
+      </div>
+      <h1 className="title font-bold text-4xl tracking-tighter max-w-[650px]">
         {post.metadata.title}
       </h1>
       <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">

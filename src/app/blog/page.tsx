@@ -1,7 +1,8 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { getBlogPosts } from "@/data/blog";
 import Link from "next/link";
-
+import { TextAnimate } from "@/components/magicui/text-animate";
+import { formatDate } from "@/lib/utils";
 export const metadata = {
   title: "Blog",
   description: "My thoughts on software development, life, and more.",
@@ -15,9 +16,14 @@ export default async function BlogPage() {
   return (
     <section>
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <h1 className="font-medium text-2xl mb-2 tracking-tighter">Blog</h1>
-        <p className="text-muted-foreground mb-8">Where my thoughts are stored on the internet</p>
+        <h1 className="font-bold text-4xl mb-2 tracking-tighter">Blog 💭</h1>
+        <div className="text-muted-foreground mb-8 italic">
+          <TextAnimate animation="blurInUp" by="character" once duration={0.5}>
+            Where my thoughts are stored on the internet!
+          </TextAnimate>
+        </div>
       </BlurFade>
+
       {posts
         .sort((a, b) => {
           if (
@@ -36,7 +42,7 @@ export default async function BlogPage() {
               <div className="w-full flex flex-col">
                 <p className="tracking-tight">{post.metadata.title}</p>
                 <p className="h-6 text-xs text-muted-foreground">
-                  {post.metadata.publishedAt}
+                  {formatDate(post.metadata.publishedAt)}
                 </p>
               </div>
             </Link>

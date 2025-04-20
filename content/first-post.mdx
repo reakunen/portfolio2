@@ -1,0 +1,60 @@
+---
+title: "Building My Portfolio Website"
+publishedAt: "2025-04-10"
+summary: "A behind-the-scenes look at how I built my personal portfolio and blog using modern web technologies."
+---
+
+When I decided to create my personal portfolio and blog, I wanted it to be more than just a simple website - I wanted it to be a reflection of my skills and interests as a developer.
+
+## Tech Stack Comparison
+
+I evaluated several options before settling on my final tech stack. Here's what the comparison looked like:
+
+| Feature | Next.js | Gatsby | Astro |
+|---------|---------|--------|--------|
+| Static Generation | ✅ | ✅ | ✅ |
+| Server Components | ✅ | ❌ | ❌ |
+| Learning Curve | Moderate | Steep | Easy |
+| MDX Support | Built-in | Plugin | Built-in |
+| Community Size | Large | Large | Growing |
+
+After careful consideration, I chose Next.js for its robust features and excellent developer experience.
+
+## Tech Stack
+
+I built this website using a modern stack that prioritizes performance and developer experience:
+
+- **Next.js**: For its excellent static site generation and dynamic capabilities
+- **MDX**: Allowing me to write content in Markdown while embedding React components
+- **Tailwind CSS**: For rapid styling and consistent design
+- **TypeScript**: Because type safety is always a good idea!
+
+## Why These Choices?
+
+The combination of Next.js and MDX is particularly powerful for a developer blog. I can write my posts in Markdown (like this one!), but when I need more interactive elements, I can seamlessly embed React components. For example:
+
+```jsx
+// A simple example of embedding React components in MDX
+import { CodeBlock } from '../components/CodeBlock'
+
+<CodeBlock language="typescript">
+  console.log("Hello, Portfolio!");
+</CodeBlock>
+```
+
+## Learning Points
+
+Building this site taught me several valuable lessons:
+
+1. **Content Structure Matters**: Organizing content with MDX requires thoughtful file structure
+2. **Performance Optimization**: Static generation with Next.js makes the site blazing fast
+3. **Design Systems**: Tailwind CSS helped me maintain consistent styling across components
+
+## What's Next? *(Pun Intended)*
+
+I plan to continue improving this site by:
+- Adding more interactive components
+- Creating more engaging blog content
+- Optimizing for better accessibility
+
+Stay tuned for more updates as I continue to enhance and expand this digital space!
