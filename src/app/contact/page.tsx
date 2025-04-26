@@ -1,7 +1,10 @@
-'use client';
-
 import { TextAnimate } from '@/components/magicui/text-animate';
 import ContactForm from './contactform';
+
+export const metadata = {
+    title: "Contact",
+    description: "Contact me for any questions or comments.",
+  };
 
 export default function ContactPage() {
     return (
