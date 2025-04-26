@@ -9,6 +9,7 @@ import Link from "next/link";
 import { ChevronLeft, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+// import BlogReactions from '@/components/BlogReactions';
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -70,7 +71,7 @@ export default async function Blog({
   }
 
   // Increment views when the page is loaded
-  await incrementViews(params.slug);
+  // await incrementViews(params.slug);
 
   return (
     <section id="blog">
@@ -114,10 +115,13 @@ export default async function Blog({
             {formatDate(post.metadata.publishedAt)}
           </p>
         </Suspense>
-        <div className="flex items-center gap-1 text-sm text-muted-foreground">
-          <Eye className="size-4" />
-          {post.views} views
-        </div>
+        {/* <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <Eye className="size-4" />
+            {post.views} views
+          </div>
+          <BlogReactions slug={params.slug} />
+        </div> */}
       </div>
       <article
         className="prose dark:prose-invert"

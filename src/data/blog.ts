@@ -51,13 +51,13 @@ export async function getPost(slug: string) {
   const content = await markdownToHTML(rawContent);
   
   // Get view count from Redis
-  const views = await redis.get<number>(`pageviews:${slug}`) ?? 0;
+  // const views = await redis.get<number>(`pageviews:${slug}`) ?? 0;
   
   return {
     source: content,
     metadata,
     slug,
-    views,
+    // views,
   };
 }
 
@@ -66,12 +66,12 @@ async function getAllPosts(dir: string) {
   return Promise.all(
     mdxFiles.map(async (file) => {
       let slug = path.basename(file, path.extname(file));
-      let { metadata, source, views } = await getPost(slug);
+      let { metadata, source } = await getPost(slug);
       return {
         metadata,
         slug,
         source,
-        views,
+        // views,
       };
     }),
   );

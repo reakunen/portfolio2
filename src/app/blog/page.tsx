@@ -47,10 +47,10 @@ export default async function BlogPage() {
                   <p className="h-6 text-xs text-muted-foreground">
                     {formatDate(post.metadata.publishedAt)}
                   </p>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                  {/* <div className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Eye className="size-3" />
                     {post.views} views
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Link>
